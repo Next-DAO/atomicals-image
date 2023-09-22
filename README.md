@@ -43,6 +43,12 @@ mkdir wallets
 
 touch wallets/wallet{1..10}.json
 
+docker run -it --rm -v `pwd`/wallets/wallet1.json:/wallet.json atomicals yarn cli mint-dft pepe
+docker run -it --rm -v `pwd`/wallets/wallet2.json:/wallet.json atomicals yarn cli mint-dft pepe
+...
+docker run -it --rm -v `pwd`/wallets/wallet10.json:/wallet.json atomicals yarn cli mint-dft pepe
+
+# or use alias
 atom-cli `pwd`/wallets/wallet1.json mint-dft pepe
 atom-cli `pwd`/wallets/wallet2.json mint-dft pepe
 ...

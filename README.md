@@ -44,7 +44,7 @@ touch wallet.json
 docker run -it --rm -v ${path-to-your-wallet.json}:/wallet.json atom-advanced yarn cli balances
 ```
 
-**NOTE:** If your created `wallet.json` in step 2, you should save it to a `SAFE` place.
+**NOTE:** If your created empty `wallet.json` in step 2, you should save it to a `SAFE` place.
 
 4. (Optional) You can use alias to make it easier to use:
 

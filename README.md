@@ -30,7 +30,7 @@ docker run -it --rm -v `pwd`/wallet.json:/wallet.json atomicals yarn cli balance
 
 ```bash
 # add this to your .bashrc or .zshrc
-alias atom-cli='f() { docker run -it --rm -v "$1":/wallet.json atomicals yarn cli "${@:2}"; unset -f f; }; f'
+alias atom-cli='f() { if [ -f "$1" ]; then docker run -it --rm -v "$1":/wallet.json atomicals yarn cli "${@:2}"; else echo "wallet file $1 not exit"; fi; unset -f f; }; f'
 
 # then you can use it like this
 atom-cli `pwd`/wallet.json balances

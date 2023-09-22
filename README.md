@@ -23,3 +23,17 @@ docker run -it --rm atom-lucky2077 balances
 ```
 
 5. If you want to create many wallets, change all the `lucky2077` to your other names.
+
+## For Advanced Users OR Who has `wallet.json`
+
+1. Run the following command to build the image:
+
+```bash
+docker build --build-arg WALLET=advanced -t atom-advanced .
+```
+
+2. Run the following command to check your balance:
+
+```bash
+docker run -it --rm -v ${path-to-your-wallet.json}:/app/wallet.json atom-advanced balances
+```

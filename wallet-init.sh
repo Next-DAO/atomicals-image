@@ -7,8 +7,12 @@ if [ -z "${WALLET}" ]; then
     exit 1
 fi
 
+if [ "${WALLET}" == "advanced" ]; then
+    echo SKIP WALLET INIT
+    exit 0
+fi
 
-echo "CREATE WALLET ${WALLET}"
+echo "INIT WALLET ${WALLET}"
 echo ""
 
 yarn cli wallet-init

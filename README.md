@@ -4,6 +4,8 @@ This repository contains all source codes for the official repository [atomicals
 
 Aim to provide a simple and easy way to use atomicals's cli. For whom struggled with the installation of nodejs and npm.
 
+**NOTE:** Only tested on macOS/Linux.
+
 ## Usage
 
 1. Install [Docker](https://docs.docker.com/engine/install/#supported-platforms) first. (Recommend to use [Orbstack](https://orbstack.dev/) if you are using macOS.)
@@ -11,53 +13,27 @@ Aim to provide a simple and easy way to use atomicals's cli. For whom struggled 
 2. Run the following command to build the image:
 
 ```bash
-docker build --build-arg WALLET=lucky2077 -t atom-lucky2077 .
+docker build -t atomicals .
 ```
 
-3. SAVE the json parts to a `SAFE` place.
-
-4. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.
-
-```bash
-docker run -it --rm atom-lucky2077 balances
-```
-
-5. If you want to create many wallets, change all the `lucky2077` to your other names.
-
-## For Advanced Users OR Who has `wallet.json`
-
-1. Run the following command to build the image:
-
-```bash
-docker build -f Dockerfile.advanced -t atom-advanced .
-
-# or you can use the image build by me
-docker pull lucky2077/atomicals:advanced
-docker tag lucky2077/atomicals:advanced atom-advanced
-```
-
-2. Create an empty `wallet.json` file OR SKIP this step if you already have one.
+3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.
 
 ```bash
 touch wallet.json
+
+docker run -it --rm -v `pwd`/wallet.json:/wallet.json atomicals yarn cli balances
 ```
 
-3. Run the following command to check your balance:
-
-```bash
-docker run -it --rm -v ${path-to-your-wallet.json}:/wallet.json atom-advanced yarn cli balances
-```
-
-**NOTE:** If your created empty `wallet.json` in step 2, you should save it to a `SAFE` place.
+**NOTE:** You should save the `wallet.json` to a `SAFE` place.
 
 4. (Optional) You can use alias to make it easier to use:
 
 ```bash
 # add this to your .bashrc or .zshrc
-alias atom-cli='f() { docker run -it --rm -v "$1":/wallet.json atom-advanced yarn cli "${@:2}"; unset -f f; }; f'
+alias atom-cli='f() { docker run -it --rm -v "$1":/wallet.json atomicals yarn cli "${@:2}"; unset -f f; }; f'
 
 # then you can use it like this
-atom-cli ${path-to-your-wallet.json} balances
+atom-cli `pwd`/wallet.json balances
 ```
 
 5. (Optional) You can use the following command to create many wallets:

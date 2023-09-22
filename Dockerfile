@@ -23,10 +23,6 @@ RUN set -ex && \
 FROM base AS release
 
 COPY --from=build /app /app
-COPY ./wallet-init.sh /app/
+COPY ./entrypoint.sh /entrypoint.sh
 
-ARG WALLET=""
-
-RUN ./wallet-init.sh
-
-ENTRYPOINT [ "yarn", "cli" ]
+ENTRYPOINT ["/entrypoint.sh"]

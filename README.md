@@ -1,6 +1,7 @@
 # Atomicals Javascript Library
 
 > atomicals.xyz
+> Documentation: https://docs.atomicals.xyz
 
 ![Atomicals](banner.png)
 
@@ -8,23 +9,15 @@
 
 ## Install
 
-With npm:
 ```
-npm install atomicals
+Download the github repo and then run:
 
-...or download the github repo and then run:
-
-npm install (from inside the directory)
-
-...then build:
-
+npm install
 npm build
-
-And that's it!
 
 See all commands at:
 
-npm cli --help
+npm run cli --help
 
 ```
 
@@ -70,68 +63,13 @@ yarn cli --help
  
 #### 3. Quick Commands
 
-Make sure to initialize local wallet as in step 1. above first
-
-*Register a Realm*
-
+Get all of the commands available:
+ 
 ```
-npm cli mint-realm <realm> --bitworkc=<Any 4 digit number/hex >
-
-Example:
-
-npm cli mint-realm helloworld --bitworkc=0123
-
+npm run cli --help
 ```
 
-*Register a Container*
-
-```
-npm cli mint-container <container> --bitworkc=<Any 4 digit number/hex >
-
-Example:
-
-npm cli mint-realm "cool-nft-collection" --bitworkc=7872
-
-```
-
-*Mint NFT*
-
-```
-npm cli mint-nft image.jpg  
-
-
-```
-
-
-*Mint FT Token (Decentralized) *
-
-```
-npm cli init-dft <ticker> <units per mint> <max mints allowed> <mint height> image.jpg --bitworkc=<Any 4 digit number/hex >
-
-Examples:
-
-npm cli init-dft coolticker 1000 2100 0 image.jpg --bitworkc=0002
-
-npm cli init-dft onyx 1000 3000 808000 image.jpg --meta @sample-ft-meta.json
-
-// After the token ticker was claimed, then mint with:
-
-npm cli mint-dft <ticker name>
-
-
-```
-
-*Mint FT Token (Direct) *
-
-```
-npm cli mint-ft <ticker> <total supply> <images/files...> --bitworkc=<Any 4 digit number/hex >
-
-Examples:
-
-npm cli mint-ft act 1000000 image.jpg --bitworkc=1234 
-
-
-```
+Read the documentation at https://docs.atomicals.xyz
 
 
 ## ElectrumX Server RPC Interface

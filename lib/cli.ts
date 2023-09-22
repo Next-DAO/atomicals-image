@@ -832,7 +832,7 @@ program.command('delete')
   .option('--satsoutput <number>', 'Satoshis to put into output', '1000')
   .option('--bitworkc <string>', 'Whether to add any bitwork proof of work to the commit tx')
   .option('--bitworkr <string>', 'Whether to add any bitwork proof of work to the reveal tx.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (atomicalId, path, keystoDelete, options) => {
     try {
       const walletInfo = await validateWalletStorage();
@@ -845,7 +845,7 @@ program.command('delete')
         satsoutput: parseInt(options.satsoutput, 10),
         bitworkc: options.bitworkc,
         bitworkr: options.bitworkr,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1038,7 +1038,7 @@ program.command('enable-subrealms')
   .option('--satsoutput <number>', 'Satoshis to put into output', '1000')
   .option('--bitworkc <string>', 'Whether to add any bitwork proof of work to the commit tx')
   .option('--bitworkr <string>', 'Whether to add any bitwork proof of work to the reveal tx.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (realmOrSubRealm, rules, options) => {
     try {
       const walletInfo = await validateWalletStorage();
@@ -1051,7 +1051,7 @@ program.command('enable-subrealms')
         satsoutput: parseInt(options.satsoutput),
         bitworkc: options.bitworkc,
         bitworkr: options.bitworkr,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1068,7 +1068,7 @@ program.command('disable-subrealm-mints')
   .option('--satsoutput <number>', 'Satoshis to put into output', '1000')
   .option('--bitworkc <string>', 'Whether to add any bitwork proof of work to the commit tx')
   .option('--bitworkr <string>', 'Whether to add any bitwork proof of work to the reveal tx.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (realmOrSubRealm, options) => {
     try {
       const walletInfo = await validateWalletStorage();
@@ -1081,7 +1081,7 @@ program.command('disable-subrealm-mints')
         satsoutput: parseInt(options.satsoutput),
         bitworkc: options.bitworkc,
         bitworkr: options.bitworkr,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1126,21 +1126,21 @@ program.command('mint-ft')
   .option('--meta <string...>', 'Populate the \'meta\' field with key value pairs or file contents')
   .option('--ctx <string...>', 'Populate the \'ctx\' field with key value pairs or file contents')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
-  .option('--initial-owner <string>', 'Initial owner wallet alias to mint the Atomical into')
+  .option('--initialowner <string>', 'Initial owner wallet alias to mint the Atomical into')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
   .option('--parent <string>', 'Whether to require a parent atomical to be spent along with the mint.')
-  .option('--parent-owner <string>', 'Wallet owner of the parent to spend along with the mint.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--parentowner <string>', 'Wallet owner of the parent to spend along with the mint.')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (ticker, supply, files, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const requestTicker = ticker.toLowerCase();
-      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentOwner, walletInfo.primary);
+      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentowner, walletInfo.primary);
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
       if (isNaN(supply)) {
         throw 'supply must be an integer';
       }
@@ -1154,7 +1154,7 @@ program.command('mint-ft')
         bitworkr: options.bitworkr,
         parent: options.parent,
         parentOwner: parentOwnerRecord,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1174,13 +1174,13 @@ program.command('init-dft')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
   .option('--funding <string>', 'Use wallet alias wif key to be used for funding and change')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
-  .option('-m, --mint-bitworkc <string>', 'Whether to require any bitwork proof of work to mint. Applies to the commit transaction.')
-  .option('--mint-bitworkr <string>', 'Whether to require any bitwork proof of work to mint. Applies to the reveal transaction.')
+  .option('-m, --mintbitworkc <string>', 'Whether to require any bitwork proof of work to mint. Applies to the commit transaction.')
+  .option('-r, --mintbitworkr <string>', 'Whether to require any bitwork proof of work to mint. Applies to the reveal transaction.')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
   .option('--parent <string>', 'Whether to require a parent atomical to be spent along with the mint.')
-  .option('--parent-owner <string>', 'Wallet owner of the parent to spend along with the mint.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for Bitwork mining. Improvements mining performance to set this flag')
+  .option('--parentowner <string>', 'Wallet owner of the parent to spend along with the mint.')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for Bitwork mining. Improvements mining performance to set this flag')
   .action(async (ticker, mintAmount, maxMints, mintHeight, files, options) => {
     try {
       const walletInfo = await validateWalletStorage();
@@ -1188,9 +1188,9 @@ program.command('init-dft')
       const requestTicker = ticker.toLowerCase();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
       let walletRecord = resolveWalletAliasNew(walletInfo, options.funding, walletInfo.funding);
-      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentOwner, walletInfo.primary);
+      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentowner, walletInfo.primary);
       console.log('options', options);
-      const result: any = await atomicals.initDftInteractive(files, walletRecord.address, requestTicker, mintAmount, maxMints, mintHeight, options.mintBitworkc, options.mintBitworkr, walletRecord.WIF, {
+      const result: any = await atomicals.initDftInteractive(files, walletRecord.address, requestTicker, mintAmount, maxMints, mintHeight, options.mintbitworkc, options.mintbitworkr, walletRecord.WIF, {
         meta: options.meta,
         ctx: options.ctx,
         init: options.init,
@@ -1201,7 +1201,7 @@ program.command('init-dft')
         bitworkr: options.bitworkr,
         parent: options.parent,
         parentOwner: parentOwnerRecord,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1212,20 +1212,20 @@ program.command('init-dft')
 program.command('mint-dft')
   .description('Mint coins for a decentralized fungible token (FT)')
   .argument('<ticker>', 'string')
-  .option('--initial-owner <string>', 'Make change into this wallet')
+  .option('--initialowner <string>', 'Make change into this wallet')
   .option('--funding <string>', 'Use wallet alias wif key to be used for funding and change')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for Bitwork mining. Improvements mining performance to set this flag')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for Bitwork mining. Improvements mining performance to set this flag')
   .action(async (ticker, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       ticker = ticker.toLowerCase();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
       const result: any = await atomicals.mintDftInteractive(walletRecord.address, ticker, walletRecord.WIF, {
         satsbyte: parseInt(options.satsbyte),
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1240,22 +1240,22 @@ program.command('mint-nft')
   .option('--meta <string...>', 'Populate the \'meta\' field with key value pairs or file contents')
   .option('--ctx <string...>', 'Populate the \'ctx\' field with key value pairs or file contents')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
-  .option('--initial-owner <string>', 'Initial owner wallet alias to mint the Atomical into')
+  .option('--initialowner <string>', 'Initial owner wallet alias to mint the Atomical into')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
   .option('--satsoutput <number>', 'Satoshis to put into the minted atomical', '1000')
   .option('--container <string>', 'Name of the container to request')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
   .option('--parent <string>', 'Whether to require a parent atomical to be spent along with the mint.')
-  .option('--parent-owner <string>', 'Wallet owner of the parent to spend along with the mint.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--parentowner <string>', 'Wallet owner of the parent to spend along with the mint.')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (files, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
-      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
+      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentowner, walletInfo.primary);
       const result: any = await atomicals.mintNftInteractive(files, walletRecord.address, walletRecord.WIF, {
         meta: options.meta,
         ctx: options.ctx,
@@ -1267,7 +1267,7 @@ program.command('mint-nft')
         bitworkr: options.bitworkr,
         parent: options.parent,
         parentOwner: parentOwnerRecord,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1281,7 +1281,7 @@ program.command('mint-realm')
   .option('--meta <string...>', 'Populate the \'meta\' field with key value pairs or file contents')
   .option('--ctx <string...>', 'Populate the \'ctx\' field with key value pairs or file contents')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
-  .option('--initial-owner <string>', 'Initial owner wallet alias to mint the Atomical into')
+  .option('--initialowner <string>', 'Initial owner wallet alias to mint the Atomical into')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
   .option('--satsoutput <number>', 'Satoshis to put into the minted atomical', '1000')
   .option('--funding <string>', 'Use wallet alias WIF key to be used for funding and change')
@@ -1289,15 +1289,15 @@ program.command('mint-realm')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
   .option('--parent <string>', 'Whether to require a parent atomical to be spent along with the mint.')
-  .option('--parent-owner <string>', 'Wallet owner of the parent to spend along with the mint.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--parentowner <string>', 'Wallet owner of the parent to spend along with the mint.')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (realm, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
-      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
+      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentowner, walletInfo.primary);
       const result: any = await atomicals.mintRealmInteractive(realm, walletRecord.address, walletRecord.WIF, {
         meta: options.meta,
         ctx: options.ctx,
@@ -1309,7 +1309,7 @@ program.command('mint-realm')
         bitworkr: options.bitworkr,
         parent: options.parent,
         parentOwner: parentOwnerRecord,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1324,19 +1324,19 @@ program.command('mint-subrealm')
   .option('--ctx <string...>', 'Populate the \'ctx\' field with key value pairs or file contents')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
   .option('--owner <string>', 'Owner of the parent Atomical. Used for direct subrealm minting.')
-  .option('--initial-owner <string>', 'Initial owner wallet alias to mint the Atomical into')
+  .option('--initialowner <string>', 'Initial owner wallet alias to mint the Atomical into')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
   .option('--satsoutput <number>', 'Satoshis to put into the minted atomical', '1000')
   .option('--container <string>', 'Name of the container to request')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (subrealm, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
       let ownerWalletRecord = resolveWalletAliasNew(walletInfo, options.owner, walletInfo.primary);
       const result: any = await atomicals.mintSubrealmInteractive(subrealm, walletRecord.address, walletRecord.WIF, ownerWalletRecord, {
         meta: options.meta,
@@ -1347,7 +1347,7 @@ program.command('mint-subrealm')
         container: options.container,
         bitworkc: options.bitworkc,
         bitworkr: options.bitworkr,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1361,22 +1361,22 @@ program.command('mint-container')
   .option('--meta <string...>', 'Populate the \'meta\' field with key value pairs or file contents')
   .option('--ctx <string...>', 'Populate the \'ctx\' field with key value pairs or file contents')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
-  .option('--initial-owner <string>', 'Initial owner wallet alias to mint the Atomical into')
+  .option('--initialowner <string>', 'Initial owner wallet alias to mint the Atomical into')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
   .option('--satsoutput <number>', 'Satoshis to put into the minted atomical', '1000')
   .option('--container <string>', 'Name of the container to request to be a member of. Not to be confused with the \'mint-container\' command to create a new container')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
   .option('--parent <string>', 'Whether to require a parent atomical to be spent along with the mint.')
-  .option('--parent-owner <string>', 'Wallet owner of the parent to spend along with the mint.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--parentowner <string>', 'Wallet owner of the parent to spend along with the mint.')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (container, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
-      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
+      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentowner, walletInfo.primary);
       const result: any = await atomicals.mintContainerInteractive(container, walletRecord.address, walletRecord.WIF, {
         meta: options.meta,
         ctx: options.ctx,
@@ -1388,7 +1388,7 @@ program.command('mint-container')
         bitworkr: options.bitworkr,
         parent: options.parent,
         parentOwner: parentOwnerRecord,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {
@@ -1567,21 +1567,21 @@ program.command('store-dat')
   .option('--meta <string...>', 'Populate the \'meta\' field with key value pairs or file contents')
   .option('--ctx <string...>', 'Populate the \'ctx\' field with key value pairs or file contents')
   .option('--init <string...>', 'Populate the \'init\' field with key value pairs or file contents')
-  .option('--initial-owner <string>', 'Initial owner wallet alias to mint the Atomical into')
+  .option('--initialowner <string>', 'Initial owner wallet alias to mint the Atomical into')
   .option('--satsbyte <number>', 'Satoshis per byte in fees', '20')
   .option('--satsoutput <number>', 'Satoshis to put into output', '1000')
   .option('--bitworkc <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the commit transaction.')
   .option('--bitworkr <string>', 'Whether to put any bitwork proof of work into the token mint. Applies to the reveal transaction.')
   .option('--parent <string>', 'Whether to require a parent atomical to be spent along with the mint.')
-  .option('--parent-owner <string>', 'Wallet owner of the parent to spend along with the mint.')
-  .option('--disable-chalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
+  .option('--parentowner <string>', 'Wallet owner of the parent to spend along with the mint.')
+  .option('--disablechalk', 'Whether to disable the real-time chalked logging of each hash for mining. Improvements mining performance to set this flag')
   .action(async (files, options) => {
     try {
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const atomicals = new Atomicals(config, ElectrumApi.createClient(process.env.ELECTRUMX_WSS || ''));
-      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialOwner, walletInfo.primary);
-      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentOwner, walletInfo.primary);
+      let walletRecord = resolveWalletAliasNew(walletInfo, options.initialowner, walletInfo.primary);
+      let parentOwnerRecord = resolveWalletAliasNew(walletInfo, options.parentowner, walletInfo.primary);
       const result: any = await atomicals.mintDatInteractive(files, walletRecord.address, walletRecord.WIF, {
         meta: options.meta,
         ctx: options.ctx,
@@ -1592,7 +1592,7 @@ program.command('store-dat')
         bitworkr: options.bitworkr,
         parent: options.parent,
         parentOwner: parentOwnerRecord,
-        disableMiningChalk: options.disableChalk
+        disableMiningChalk: options.disablechalk
       });
       handleResultLogging(result);
     } catch (error) {

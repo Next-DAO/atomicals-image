@@ -55,3 +55,17 @@ alias atom-cli='f() { docker run -it --rm -v "$1":/wallet.json atom-advanced yar
 # then you can use it like this
 atom-cli ${path-to-your-wallet.json} balances
 ```
+
+5. (Optional) You can use the following command to create many wallets:
+
+```bash
+mkdir wallets
+
+touch wallets/wallet{1..10}.json
+
+atom-cli `pwd`/wallets/wallet1.json mint-dft pepe
+atom-cli `pwd`/wallets/wallet2.json mint-dft pepe
+...
+atom-cli `pwd`/wallets/wallet10.json mint-dft pepe
+
+```

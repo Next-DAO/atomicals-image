@@ -37,3 +37,13 @@ docker build --build-arg WALLET=advanced -t atom-advanced .
 ```bash
 docker run -it --rm -v ${path-to-your-wallet.json}:/app/wallet.json atom-advanced balances
 ```
+
+3. (Optional) You can use alias to make it easier to use:
+
+```bash
+# add this to your .bashrc or .zshrc
+alias atom-cli='f() { docker run -it --rm -v "$1":/app/wallet.json atom-advanced "${@:2}"; unset -f f; }; f'
+
+# then you can use it like this
+atom-cli ${path-to-your-wallet.json} balances
+```

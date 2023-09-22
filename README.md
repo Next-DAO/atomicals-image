@@ -30,6 +30,10 @@ docker run -it --rm atom-lucky2077 balances
 
 ```bash
 docker build -f Dockerfile.advanced -t atom-advanced .
+
+# or you can use the image build by me
+docker pull lucky2077/atomicals:advanced
+docker tag lucky2077/atomicals:advanced atom-advanced
 ```
 
 2. Create an empty `wallet.json` file OR SKIP this step if you already have one.

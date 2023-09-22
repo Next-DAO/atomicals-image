@@ -1,3 +1,4 @@
 *
 !./atomicals-js
 !./wallet-init.sh
+!./entrypoint.sh

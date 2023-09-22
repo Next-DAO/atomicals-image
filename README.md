@@ -14,10 +14,6 @@ Aim to provide a simple and easy way to use atomicals's cli. For whom struggled 
 
 ```bash
 docker build -t atomicals .
-
-# or you can use image build by me.
-docker pull lucky2077/atomicals:latest
-docker tag lucky2077/atomicals:latest atomicals
 ```
 
 3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.

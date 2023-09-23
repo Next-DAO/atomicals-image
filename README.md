@@ -8,35 +8,61 @@ Aim to provide a simple and easy way to use atomicals's cli. For whom struggled 
 
 ## Usage
 
-1. Install [Docker](https://docs.docker.com/engine/install/#supported-platforms) first. (Recommend to use [Orbstack](https://orbstack.dev/) if you are using macOS.)
+### 1. Install [Docker](https://docs.docker.com/engine/install/#supported-platforms) first. (Recommend to use [Orbstack](https://orbstack.dev/) if you are using macOS.)
 
-2. Run the following command to build the image:
+### 2a. Run the following command to build the image (jump to step `2b` if you don't want to build it yourself):
+
+```bash
+git clone https://github.com/lucky2077/atomicals-image
+```
+
+```bash
+cd atomicals-image
+```
 
 ```bash
 docker build -t atomicals .
 ```
 
-3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.
+### 2b. Or you can pull the image from docker hub:
+
+```bash
+docker pull lucky2077/atomicals
+```
+
+```bash
+docker tag lucky2077/atomicals atomicals
+```
+
+### 3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.
 
 ```bash
 touch wallet.json
+```
 
+```bash
 docker run -it --rm -v `pwd`/wallet.json:/wallet.json atomicals yarn cli balances
 ```
 
+replace `yarn cli balances` with other commands from official docs. https://docs.atomicals.xyz/
+
 **NOTE:** You should save the `wallet.json` to a `SAFE` place.
 
-4. (Optional) You can use alias to make it easier to use:
+### 4. (Optional) You can use alias to make it easier to use:
+
+add this to your .bashrc or .zshrc
 
 ```bash
-# add this to your .bashrc or .zshrc
 alias atom-cli='f() { if [ -f "$1" ]; then docker run -it --rm -v "$1":/wallet.json atomicals yarn cli "${@:2}"; else echo "wallet file $1 not exit"; fi; unset -f f; }; f'
+```
 
-# then you can use it like this
+then you can use it like this
+
+```bash
 atom-cli `pwd`/wallet.json balances
 ```
 
-5. (Optional) You can use the following command to create many wallets:
+### 5. (Optional) You can use the following command to create many wallets:
 
 ```bash
 mkdir wallets

@@ -50,7 +50,7 @@ touch local-wallet.json
 docker run -it --rm -v `pwd`/local-wallet.json:/wallet.json atomicals yarn cli balances
 ```
 
-- The container will execute `yarn cli wallet-init` automatically if the `local-wallet.json` is empty. And save wallet info to `local-wallet.json`.
+- The container will execute `yarn cli wallet-init` automatically if the `local-wallet.json` is empty. And save wallet info into `local-wallet.json`.
 - The `:/wallet.json` is used by the image, **DO NOT CHANGE IT**.
 - replace `yarn cli balances` with other commands from official docs. https://docs.atomicals.xyz/
 

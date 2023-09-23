@@ -10,7 +10,9 @@ Aim to provide a simple and easy way to use atomicals's cli. For whom struggled 
 
 ### 1. Install [Docker](https://docs.docker.com/engine/install/#supported-platforms) first. (Recommend to use [Orbstack](https://orbstack.dev/) if you are using macOS.)
 
-### 2a. Run the following command to build the image (jump to step `2b` if you don't want to build it yourself):
+### 2a. Run the following command to build the image:
+
+Jump to step `2b` if you don't want to build it yourself.
 
 ```bash
 git clone https://github.com/lucky2077/atomicals-image
@@ -25,6 +27,8 @@ docker build -t atomicals .
 ```
 
 ### 2b. Or you can pull the image from docker hub:
+
+If you're using an Apple Silicon Mac, go back to step `2a` and build it yourself.
 
 ```bash
 docker pull lucky2077/atomicals

@@ -73,8 +73,12 @@ atom-cli `pwd`/wallet.json balances
 ```bash
 mkdir wallets
 
+# create 10 empty wallet.json file in wallets folder
+# e.g. wallets/wallet1.json, wallets/wallet2.json, ...
 touch wallets/wallet{1..10}.json
 
+# open 10 terminals or use tmux/screen
+# run the following command in each terminal
 docker run -it --rm -v `pwd`/wallets/wallet1.json:/wallet.json atomicals yarn cli mint-dft pepe
 docker run -it --rm -v `pwd`/wallets/wallet2.json:/wallet.json atomicals yarn cli mint-dft pepe
 ...

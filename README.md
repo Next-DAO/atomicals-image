@@ -48,7 +48,9 @@ touch wallet.json
 docker run -it --rm -v `pwd`/wallet.json:/wallet.json atomicals yarn cli balances
 ```
 
-replace `yarn cli balances` with other commands from official docs. https://docs.atomicals.xyz/
+- The `:/wallet.json` is used by the image, **DO NOT CHANGE IT**.
+- The file before `:` is not important, you can use any name you want. **BUT IT MUST BE AN EXIST FILE**.
+- replace `yarn cli balances` with other commands from official docs. https://docs.atomicals.xyz/
 
 **NOTE:** You should save the `wallet.json` to a `SAFE` place.
 

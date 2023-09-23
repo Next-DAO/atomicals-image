@@ -8,12 +8,14 @@ RUN corepack enable
 # build image
 FROM base AS build
 
+COPY ./atomicals-js/package.json ./atomicals-js/yarn.lock /app/
+
+RUN set -ex && yarn
+
 COPY ./atomicals-js /app
 
 RUN set -ex && \
-    # rm yarn.lock package-lock.json && \
-    # install dependencies and build
-    yarn && yarn build && \
+    yarn build && \
     # remove dev dependencies
     # yarn install --production && \
     # check atomicals version

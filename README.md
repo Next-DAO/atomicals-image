@@ -38,6 +38,16 @@ docker pull lucky2077/atomicals
 docker tag lucky2077/atomicals atomicals
 ```
 
+#### For Apple Silicon Mac users:
+
+```bash
+docker pull lucky2077/atomicals:silicon
+```
+
+```bash
+docker tag lucky2077/atomicals:silicon atomicals
+```
+
 ### 3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.
 
 crete an empty file named `local-wallet.json` first.

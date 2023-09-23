@@ -28,14 +28,22 @@ docker build -t atomicals .
 
 ### 2b. 直接从 docker hub 拉取镜像:
 
-如果你使用的是 Apple Silicon Mac，请回到步骤 `2a` 自己构建。(Github Actions 构建 linux/arm64 镜像失败，暂时无法解决。)
-
 ```bash
 docker pull lucky2077/atomicals
 ```
 
 ```bash
 docker tag lucky2077/atomicals atomicals
+```
+
+#### Apple silicon 用户:
+
+```bash
+docker pull lucky2077/atomicals:silicon
+```
+
+```bash
+docker tag lucky2077/atomicals:silicon atomicals
 ```
 
 ### 3. 执行下面的命令来查看余额; 如果成功你会看到两个地址和两个二维码图片。
@@ -80,6 +88,8 @@ mkdir wallets
 
 # 在 wallets 文件夹中创建 10 个空的 wallet.json 文件
 # 最终呈现为： wallets/wallet1.json, wallets/wallet2.json, ..., wallets/wallet10.json
+touch wallets/wallet{1..10}.json
+
 # 打开 10 个终端或者使用 tmux/screen，下面一条命令在一个终端执行
 docker run -it --rm -v `pwd`/wallets/wallet1.json:/wallet.json atomicals yarn cli mint-dft pepe
 docker run -it --rm -v `pwd`/wallets/wallet2.json:/wallet.json atomicals yarn cli mint-dft pepe

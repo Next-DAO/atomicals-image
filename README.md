@@ -40,19 +40,21 @@ docker tag lucky2077/atomicals atomicals
 
 ### 3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.
 
+crete an empty file named `local-wallet.json` first.
+
 ```bash
-touch wallet.json
+touch local-wallet.json
 ```
 
 ```bash
-docker run -it --rm -v `pwd`/wallet.json:/wallet.json atomicals yarn cli balances
+docker run -it --rm -v `pwd`/local-wallet.json:/wallet.json atomicals yarn cli balances
 ```
 
+- The container will execute `yarn cli wallet-init` automatically if the `local-wallet.json` is empty. And save wallet info to `local-wallet.json`.
 - The `:/wallet.json` is used by the image, **DO NOT CHANGE IT**.
-- The file before `:` is not important, you can use any name you want. **BUT IT MUST BE AN EXIST FILE**.
 - replace `yarn cli balances` with other commands from official docs. https://docs.atomicals.xyz/
 
-**NOTE:** You should save the `wallet.json` to a `SAFE` place.
+**NOTE:** You should save the `local-wallet.json` to a `SAFE` place.
 
 ### 4. (Optional) You can use alias to make it easier to use:
 
@@ -65,7 +67,7 @@ alias atom-cli='f() { if [ -f "$1" ]; then docker run -it --rm -v "$1":/wallet.j
 then you can use it like this
 
 ```bash
-atom-cli `pwd`/wallet.json balances
+atom-cli `pwd`/local-wallet.json balances
 ```
 
 ### 5. (Optional) You can use the following command to create many wallets:

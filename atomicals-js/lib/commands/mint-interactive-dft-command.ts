@@ -58,7 +58,7 @@ export class MintInteractiveDftCommand implements CommandInterface {
       throw new Error('Subtype must be decentralized fungible token type')
     }
 
-    if (atomicalDecorated['$mint_height'] > globalInfo['height']) {
+    if (atomicalDecorated['$mint_height'] > (globalInfo['height'] + 1)) {
       throw new Error(`Mint height is invalid. height=${globalInfo['height']}, $mint_height=${atomicalDecorated['$mint_height']}`)
     }
     const perAmountMint = atomicalDecorated['$mint_amount'];

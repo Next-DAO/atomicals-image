@@ -281,17 +281,18 @@ program.command('wallets')
   .option('--alias <string>', 'Restrict to only showing one of the imported wallets identified by the alias')
   .option('--type <string>', 'Show NFT or FT types only. By default shows both')
   .option('--identify <string>', 'Restrict to only showing one of the imported wallets identified by the address (if it is found)')
-  .option('--show <string>', 'Show the data and a QR code for an arbitrary address. Not expected to be loaded into local wallets.')
+  .option('--address <string>', 'Show the data and a QR code for an arbitrary address. Not expected to be loaded into local wallets.')
   .action(async (options) => {
     try {
       const all = options.all ? true : false;
       const history = options.history ? true : false;
       const alias = options.alias ? options.alias : null;
       const extra = options.extra ? options.extra : null;
+      const address = options.address ? options.address : null;
       const noqr = options.noqr ? options.noqr : null;
       const balancesOnly = options.balances ? options.balances : null;
       const identify = options.identify ? options.identify : null;
-      const show = options.show ? options.show : null;
+      const show = options.address ? options.address : null;
       const type = options.type ? options.type : 'all';
       if (type && (type.toLowerCase() !== 'all' && type.toLowerCase() !== 'nft' && type.toLowerCase() != 'ft')) {
         throw `Invalid type ${type}`
@@ -402,14 +403,15 @@ program.command('wallets')
   .option('--utxos', 'Show utxos too')
   .option('--all', 'Shows all loaded wallets and not just the primary and funding')
   .option('--alias <string>', 'Restrict to only showing one of the imported wallets identified by the alias')
+  .option('--address <string>', 'Restrict to only showing by address. Using this option with --alias has no effect.')
   .action(async (options) => {
     try {
       const alias = options.alias ? options.alias : null;
       const noqr = options.noqr ? options.noqr : null;
+      const address = options.address ? options.address : null;
       const all = options.all ? true : false;
       const utxos = options.utxos ? true : false;
       const balancesOnly = true
-
       const walletInfo = await validateWalletStorage();
       const config: ConfigurationInterface = validateCliInputs();
       const electrum = ElectrumApi.createClient(process.env.ELECTRUMX_WSS || '');
@@ -422,6 +424,15 @@ program.command('wallets')
         let result: any = await atomicals.walletInfo(walletInfo.imported[alias].address, false, keepElectrumAlive);
         console.log("\n========================================================================================================")
         console.log(`Wallet Information - ${alias} Address - ${result.data?.address}`)
+        console.log("========================================================================================================")
+        if (!noqr) {
+          qrcode.generate(result.data?.address, { small: false });
+        }
+        showWalletFTBalancesDetails(result.data, utxos)
+      } else if (address) {
+        let result: any = await atomicals.walletInfo(address, false, keepElectrumAlive);
+        console.log("\n========================================================================================================")
+        console.log(`Wallet Information - Address - ${result.data?.address}`)
         console.log("========================================================================================================")
         if (!noqr) {
           qrcode.generate(result.data?.address, { small: false });

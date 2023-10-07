@@ -65,6 +65,7 @@ export interface APIInterface {
     setRelationInteractive(atomicalId: string, relationName, values: string[], funding: IWalletRecord, atomicalOwner: IWalletRecord, options: BaseRequestOptions): Promise<CommandResultInterface>;
     
     // Query and search
+    getAtomicalFtInfo(atomicalId: string, keepElectrumAlive: boolean): Promise<CommandResultInterface>;
     getAtomical(atomicalId: string, keepElectrumAlive: boolean): Promise<CommandResultInterface>;
     getAtomicalLocation(atomicalId: string, keepElectrumAlive: boolean): Promise<CommandResultInterface>;
     getAtomicalHistory(atomicalId: string, keepElectrumAlive: boolean): Promise<CommandResultInterface>;

@@ -406,15 +406,7 @@ export class MergeInteractiveUtxosCommand implements CommandInterface {
     const tx = psbt.extractTransaction();
 
     const rawtx = tx.toHex();
-    await jsonFileWriter(`transfer_txs/${tx.getId()}.json`, {
-      rawtx,
-    });
-
     console.log(`Constructed Atomicals operation, attempting to broadcast: ${tx.getId()}`);
-    console.log(`Saved raw transaction to: transfer_txs/${tx.getId()}.json`);
-    await jsonFileWriter(`transfer_txs/${tx.getId()}.json`, {
-      rawtx,
-    });
     let broadcastedTxId = await this.electrumApi.broadcast(rawtx);
     console.log(`Success!`);
     return {

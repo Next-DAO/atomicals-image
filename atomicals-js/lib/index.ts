@@ -63,6 +63,7 @@ import { EnableSubrealmRulesCommand } from "./commands/enable-subrealm-rules-com
 import { SplitInteractiveCommand } from "./commands/split-interactive-command";
 import { GetGlobalCommand } from "./commands/get-global-command";
 import { GetFtInfoCommand } from "./commands/get-dft-info-command";
+import { BroadcastCommand } from "./commands/broadcast-command";
 export { decorateAtomicals } from "./utils/atomical-format-helpers";
 export { addressToP2PKH } from "./utils/address-helpers";
 export { getExtendTaprootAddressKeypairPath } from "./utils/address-keypair-path";
@@ -1023,6 +1024,24 @@ export class Atomicals implements APIInterface {
       this.electrumApi.close();
     }
   }
+
+
+  async broadcast(rawtx: string): Promise<CommandResultInterface> {
+    try {
+      await this.electrumApi.open();
+      const command: CommandInterface = new BroadcastCommand(this.electrumApi, rawtx);
+      return await command.run();
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.toString(),
+        error
+      }
+    } finally {
+      this.electrumApi.close();
+    }
+  }
+
 
   async getAtomicalsAtLocation(location: string): Promise<CommandResultInterface> {
     try {

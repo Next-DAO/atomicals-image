@@ -1,6 +1,6 @@
 {
   "name": "atomicals-js",
-  "version": "0.1.21",
+  "version": "0.1.23",
   "description": "Atomicals Javascript Library and CLI - atomicals.xyz",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -62,8 +62,8 @@
     "bip32": "^3.1.0",
     "bip39": "^3.0.4",
     "bitcoinjs-lib": "^6.1.0",
+    "borc": "^3.0.0",
     "bs58check": "^3.0.1",
-    "cbor": "^8.1.0",
     "chai-as-promised": "^7.1.1",
     "chalk": "4.1.2",
     "coinselect": "^3.1.13",

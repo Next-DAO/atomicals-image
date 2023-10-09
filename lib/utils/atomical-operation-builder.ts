@@ -726,6 +726,8 @@ export class AtomicalOperationBuilder {
         let result = null;
         do {
             try {
+                console.log('rawtx', rawtx);
+               
                 result = await this.options.electrumApi.broadcast(rawtx);
                 if (result) {
                     break;

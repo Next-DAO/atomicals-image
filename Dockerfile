@@ -1,23 +1,26 @@
 # base image
-FROM node:18 AS base
+FROM node:18-alpine AS base
 
-WORKDIR /app
-
-RUN corepack enable
+RUN corepack enable yarn
 
 # build image
 FROM base AS build
 
-COPY ./atomicals-js/package.json ./atomicals-js/yarn.lock /app/
-
-RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn yarn
-
-COPY ./atomicals-js /app
+ARG VERSION=master
 
 RUN set -ex && \
-    yarn build && \
+    wget https://github.com/atomicals/atomicals-js/archive/${VERSION}.zip -O /tmp/atomicals-js.zip && \
+    cd /tmp && unzip atomicals-js.zip && \
+    mv /tmp/atomicals-js-${VERSION} /app
+
+WORKDIR /app
+
+ENV YARN_CACHE_FOLDER=/root/.yarn
+
+RUN --mount=type=cache,target=/root/.yarn rm package-lock.json && \
+    yarn && yarn build && \
     # remove dev dependencies
-    # yarn install --production && \
+    yarn install --production && \
     # check atomicals version
     yarn cli --version
 
@@ -26,5 +29,7 @@ FROM base AS release
 
 COPY --from=build /app /app
 COPY ./entrypoint.sh /entrypoint.sh
+
+WORKDIR /app
 
 ENTRYPOINT ["/entrypoint.sh"]

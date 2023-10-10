@@ -36,16 +36,6 @@ docker pull lucky2077/atomicals
 docker tag lucky2077/atomicals atomicals
 ```
 
-#### Apple silicon 用户:
-
-```bash
-docker pull lucky2077/atomicals:silicon
-```
-
-```bash
-docker tag lucky2077/atomicals:silicon atomicals
-```
-
 ### 3. 执行下面的命令来查看余额; 如果成功你会看到两个地址和两个二维码图片。
 
 先创建一个空的 `local-wallet.json` 文件。

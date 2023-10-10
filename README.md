@@ -28,24 +28,12 @@ docker build -t atomicals .
 
 ### 2b. Or you can pull the image from docker hub:
 
-If you're using an Apple Silicon Mac, go back to step `2a` and build it yourself.
-
 ```bash
 docker pull lucky2077/atomicals
 ```
 
 ```bash
 docker tag lucky2077/atomicals atomicals
-```
-
-#### For Apple Silicon Mac users:
-
-```bash
-docker pull lucky2077/atomicals:silicon
-```
-
-```bash
-docker tag lucky2077/atomicals:silicon atomicals
 ```
 
 ### 3. Run the following command to check your balance; You'll see two addresses and two qr-code images if succeed.

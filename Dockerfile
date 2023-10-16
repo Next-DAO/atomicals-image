@@ -8,9 +8,10 @@ FROM base AS build
 
 ARG VERSION=master
 
+ADD https://github.com/atomicals/atomicals-js/archive/${VERSION}.zip /tmp
+
 RUN set -ex && \
-    wget https://github.com/atomicals/atomicals-js/archive/${VERSION}.zip -O /tmp/atomicals-js.zip && \
-    cd /tmp && unzip atomicals-js.zip && \
+    cd /tmp && unzip ${VERSION} && \
     mv /tmp/atomicals-js-${VERSION} /app
 
 WORKDIR /app

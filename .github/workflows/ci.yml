@@ -38,9 +38,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           # List of external cache sources for buildx (e.g., user/app:cache, type=local,src=path/to/dir)
-          cache-from: type=gha # optional
+          #cache-from: type=gha # optional
           # List of cache export destinations for buildx (e.g., user/app:cache, type=local,dest=path/to/dir)
-          cache-to: type=gha,mode=max # optional
+          #cache-to: type=gha,mode=max # optional
           # Build's context is the set of files located in the specified PATH or URL
           context: . # optional
           # List of target platforms for build

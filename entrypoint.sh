@@ -6,10 +6,12 @@ cd /app
 
 # check if /wallet.json exists and has content
 if [ -s "/wallet.json" ]; then
-    cp /wallet.json /app/wallet.json
+  echo "use exist wallet"
+  cp /wallet.json /app/wallet.json
 else
+  echo "create new wallet"
   yarn cli wallet-init
-  cp /app/wallet.json /wallet.json
+  cat /app/wallet.json > /wallet.json
 fi
 
 exec "$@"

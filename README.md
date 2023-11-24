@@ -1,5 +1,7 @@
 # atomicals-js image
 
+[中文说明](https://github.com/Next-DAO/atomicals-image/blob/main/README.zh-CN.md)
+
 This repository contains all source codes for the official repository [atomicals-js](https://github.com/atomicals/atomicals-js).
 
 Aim to provide a simple and easy way to use atomicals's cli. For whom struggled with the installation of nodejs and npm.

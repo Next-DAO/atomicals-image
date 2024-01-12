@@ -28,6 +28,8 @@ RUN --mount=type=cache,target=/root/.yarn \
 # release image
 FROM base AS release
 
+ENV WALLET_PATH=.
+
 COPY --from=build /app /app
 COPY ./entrypoint.sh /entrypoint.sh
 
